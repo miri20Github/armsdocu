@@ -226,8 +226,8 @@
 							array('Field' => 'created_by', 'Data Type' => 'int', 'Remarks' => 'userid'),
 						);
 						?>
-						<h4> CARRIER TABLE </h4>
-						<table class="table table-bordered">
+						<h4> A. CARRIER TABLE </h4>
+						<table class="table table-bordered table-striped">
 							<tr>
 								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
 							</tr>
@@ -242,8 +242,8 @@
 							?>
 						</table>
 
-						<h4> CONTACT TABLE </h4>
-						<table class="table table-bordered">
+						<h4> B. CONTACT TABLE </h4>
+						<table class="table table-bordered  table-striped">
 							<tr>
 								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
 							</tr>
@@ -259,7 +259,7 @@
 						</table>
 						<br>
 
-						<h4> CARRIER FORM [ADD/UPDATE] </h4>
+						<h4> I. CARRIER FORM [ADD/UPDATE] </h4>
 						<hr>
 						<table width="60%">
 							<tr>
@@ -267,7 +267,22 @@
 								<td> ADDRESS <br> <input type="text" > </td>
 							</tr>							
 							<tr>
-								<td> DEPARTMENT <br> <input type="text" > </td>
+								<td> DEPARTMENT <br> 
+									<select>
+										<option> Sales Department </option>
+										<option> Customer Service Department </option>
+										<option> Claims Handling or Support </option>
+										<option> Underwriting Support </option>
+										<option> Marketing Department </option>
+										<option> Accounting and Finance </option>
+										<option> Human Resources </option>
+										<option> IT Support </option>
+										<option> Compliance Department </option>
+										<option> Risk Management </option>
+										<option> Business Development </option>
+										<option> Administration and Office Management </option>
+									</select>
+								</td>
 								<td> CITY <br> <input type="text" > </td>
 							</tr>				
 							<tr>
@@ -298,25 +313,21 @@
 	                                Note: 
 	                            </h4>
                                 <p> 
-									No need to save value for lastname, firstname, middlename, suffix in contact table in adding a new carrier. 
+									No need to save value for lastname, firstname, middlename, suffix in contact table in adding a new carrier. <br> 
+									But make <code>"carrier"</code> an automatic value for <code>"category"</code>.
 								</p>
                             </div>
                         </div>
 
 						<br>		
 						
-						<h4> CARRIER LIST </h4>
-						<?php $carrier_list = array("CARRIER ID" => "501", "CARRIER NAME" => "ABC Insurance Co.", 
-							"DEPARTMENT" => "Support Group", "PHONE" => "555-444-5555", "EMAIL" => "sample@abc.com", 
-							"ADDRESS" => "789 OAk Ave. City",
-							"CITY" => "", "STATE" => "", "ZIP" => "", "WEBSITE" => "abc.com", "STATUS" => "Active"
-							);
-
+						<h4> II. CARRIER LIST </h4>
+						<?php 
 							$tbl1 = array("CARRIER ID", "CARRIER NAME", "DEPARTMENT", "PHONE", "EMAIL", "ADDRESS",
-								"CITY", "STATE", "ZIP", "WEBSITE", "STATUS");
+								"CITY", "STATE", "ZIP", "WEBSITE", "STATUS","ACTION");
 							$tbl2 = array(
 								"501", "ABC Insurance Co.", "Support Group", "555-444-5555", "sample@abc.com", 
-								"789 OAk Ave. City", "", "", "", "abc.com", "Active");							
+								"789 OAk Ave. City", "", "", "", "abc.com", "Active","");							
 						?>
 						<table class="table table-bordered table-striped">
 							<tr>
@@ -334,6 +345,7 @@
 								?>
 							</tr>
 						</table>
+						
 					</section><!--//section-->
 
 				    <section class="docs-section" id="item-2-2">
@@ -371,7 +383,7 @@
 							?>
 						</table>
 
-						<h4> ADD NEW USER </h4> (With assign user access role)  <br><br>
+						<h4> I. ADD NEW USER </h4> (With assign user access role)  <br><br>
 						<table width="60%">			
 							<tr>
 								<td> CHOOSE NAME <br><i>(Look up names from contact table)</i> <br> <input type="text" > </td>
@@ -408,7 +420,7 @@
                         </div>
 						<br><br>
 
-						<h4> USERS LIST </h4>
+						<h4> II. USERS LIST </h4>
 						<table class="table table-bordered">
 							<tr>
 								<th> ID </th>
@@ -508,6 +520,7 @@
 						<p> In adding a new agency, these are the tables involved. See the tables below: </p>
 						
 						<?php
+						//agency table
 						$agencyTbl = array(
 							array('Field' => 'id', 'Data Type' => 'INT', 'Remarks' => 'Primary Key' ),
 							array('Field' => 'arms_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to CONTACT table' ),
@@ -517,14 +530,33 @@
 							array('Field' => 'agency_status', 'Data Type' => 'VARCHAR(20)', 'Remarks' => '' ),
 							array('Field' => 'date_signed_up', 'Data Type' => 'DATE', 'Remarks' => '' ),
 							array('Field' => 'carrier_portal_username', 'Data Type' => 'VARCHAR(50)', 'Remarks' => '' ),
-							array('Field' => 'carrier_portal_password', 'Data Type' => 'VARCHAR(100)', 'Remarks' => '' ),
+							array('Field' => 'carrier_portal_password', 'Data Type' => 'VARCHAR(100)', 'Remarks' => '' ),							
+							array('Field' => 'writing_id_type', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+							array('Field' => 'writing_number', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
 							array('Field' => 'position', 'Data Type' => 'int', 'Remarks' => 'Possible reference to position table'),
 							array('Field' => 'compensation', 'Data Type' => 'int', 'Remarks' => 'Possible reference to compenstion table'),
 						);
+
+						//license table
+						$licenseTbl = array(
+							array('Field' => 'id', 'Data Type' => 'INT', 'Remarks' => 'Primary Key' ),
+							array('Field' => 'license_number', 'Data Type' => 'VARCHAR(15)', 'Remarks' => '' ),
+							array('Field' => 'license_category', 'Data Type' => 'VARCHAR(15)', 'Remarks' => '' ),
+							array('Field' => 'license_type', 'Data Type' => 'VARCHAR(150)', 'Remarks' => '' ),
+							array('Field' => 'agency_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to Agency table' ),
+							array('Field' => 'agent_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to Agent table' ),
+							array('Field' => 'national_producer_number', 'Data Type' => 'VARCHAR(20)', 'Remarks' => '' ),
+							array('Field' => 'line_of_authority', 'Data Type' => 'VARCHAR(50)', 'Remarks' => '' ),
+							array('Field' => 'license_issue_date', 'Data Type' => 'DATE', 'Remarks' => '' ),
+							array('Field' => 'license_expiration', 'Data Type' => 'DATE', 'Remarks' => ''),
+							array('Field' => 'license_status', 'Data Type' => 'VARCHAR(20)', 'Remarks' => ''),
+							array('Field' => 'error_ommission', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+							array('Field' => 'error_ommission_status', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+						);
 						?>
 
-						<h4> CONTACT TABLE </h4>
-						<table class="table table-bordered">
+						<h4> A. CONTACT TABLE </h4>
+						<table class="table table-bordered table-striped">
 							<tr>
 								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
 							</tr>
@@ -537,10 +569,10 @@
 								</tr>';
 							endforeach;
 							?>
-						</table>
-						<br>
-						<h4> AGENCY TABLE </h4>
-						<table class="table table-bordered">
+						
+							<tr>
+								<th colspan="3"> <br> <h4> B. AGENCY TABLE </h4> </th>
+							</tr>						
 							<tr>
 								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
 							</tr>
@@ -553,13 +585,155 @@
 								</tr>';
 							endforeach;
 							?>
+							<tr>
+								<th colspan="3"> <br><h4> C. LICENSE TABLE </h4> </th>
+							</tr>
+							<tr>
+								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
+							</tr>
+							<?php 							
+							foreach($licenseTbl as $column):
+								echo '<tr>
+									<td> ' . $column['Field'] . ' </td>
+									<td> ' . $column['Data Type'] . '</td>
+									<td> ' . $column['Remarks'] . '</td>
+								</tr>';
+							endforeach;
+							?>
 						</table>
 
-						<h4> ADD NEW AGENCY </h4>
-						<p> Add New Agency form here... To follow.</p>
-						<br>	
-
-						<h4> AGENCY LIST </h4>		
+						<br>
+						<h4> I. ADD NEW AGENCY </h4>
+						<i> You can use a form wizard here. </i>
+						<br><br>
+						
+						<table width="90%">
+							<tr>
+								<td width="30%"> Company Name <br> <input type="text"> </td>								
+								<td width="30%"> Assigned Carrier <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> American Family Insurance </option> 
+										<option> AXA Equitable Life Insurance </option> 
+										<option> Brighthouse Financial </option>
+										<option> Cincinnati Financial Corporation  &nbsp;&nbsp; </option>
+									</select>
+								</td>
+								<td width="30%"> Agency Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Inactive </option> 
+										<option> Suspended </option> 
+										<option> Terminated </option> 
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td> Agency Approved Name <br> <input type="text"> </td>								
+								<td> Date Signed Up <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+								<td> E & O Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Non-Payment </option> 
+									</select>
+								</td>
+							</tr>
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> First Name <br> <input type="text"> </td>
+								<td> Middlename<br> <input type="text"> </td>
+								<td> Lastname <br> <input type="text"> </td>
+							</tr>
+							<tr>
+								<td> Phone <br> <input type="text"> </td>
+								<td> Email <br> <input type="text"> </td>
+								<td> Address <br> <input type="text"> </td>
+							</tr>
+							<tr>
+								<td> City <br> <input type="text"> </td>
+								<td> State <br> <input type="text"> </td>
+								<td> Zip Code <br> <input type="text"> </td>
+							</tr>
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> License Number <br> <input type="text"> </td>
+								<td> License Type <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Life Only </option> 
+										<option> Health, Accident and Sickness Only </option> 
+										<option> Life, Health, Accident and Sickness </option> 
+										<option> Property Only </option> 
+										<option> Casualty Only </option> 
+										<option>Property and Casualty </option>
+									</select>
+								</td>
+								<td> License Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Expired </option>
+										<option> Suspended </option> 
+										<option> Terminated </option> 
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td> License Issue Date <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+								<td> License Expiration <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> National Producer Number <br> <input type="text"> </td>
+								<td> Line of Authority <br>
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Life Insurance License </option> 
+										<option> Health Insurance License </option> 
+										<option> Property Insurance License </option> 
+										<option> Casualty Insurance License </option> 
+										<option> Personal Lines License </option> 
+										<option> Commercial Lines License </option> 
+										<option> Variable Life and Variable Annuity License </option> 
+										<option> Surplus Lines License </option> 
+										<option> Adjuster License </option> 
+										<option> Limited Lines License </option> 
+										<option> Broker License </option> 
+										<option> Consultant License </option> 
+										<option> Managing General Agent (MGA) License </option> 
+										<option> Reinsurance Intermediary License </option> 
+									</select> 								
+								</td>
+								<td> </td>
+							</tr>
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> Writing ID Type <br> <input type="text" > </td>
+								<td> Writing Number <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Position <br> <input type="text" > </td>
+								<td> Compensation <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+							
+							<tr>
+								<td> Carrier Portal Username <br> <input type="text" > </td>
+								<td> Carrier Portal Password <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+						</table>
+						
+						<br>
+						<hr>
+						
+						<h4> II. AGENCY LIST </h4>		
 						<?php 
 							$tbl1 = array("AGENCY ID", "CARRIER", "CATEGORY", "AGENCY NAME", "AGENCY APPROVAL NAME", 
 							 "AGENCY LICENSE TYPE","ACTION");
@@ -605,7 +779,7 @@
 				    <header class="docs-header">
 					    <h1 class="docs-heading"> AGENCY </h1>
 					    <section class="docs-intro">
-						    <p> This is the clients access. </p>
+						    <p> The agency role has the following capabilities.  </p>
 						</section><!--//docs-intro-->
 				    </header>
 					<section class="docs-section" id="item-4-1">
@@ -639,7 +813,261 @@
 					</section><!--//section-->
 	
 				    <section class="docs-section" id="item-4-2">
-						<h2 class="section-heading"> Agents </h2> <br><br>
+						<h2 class="section-heading"> Agents </h2> 
+
+						<p> In adding a new agent, these are the tables involved. See the tables below: </p>
+						
+						<?php
+						//agency table
+						$agentsTbl = array(
+							array('Field' => 'id', 'Data Type' => 'INT', 'Remarks' => 'Primary Key' ),
+							array('Field' => 'arms_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to CONTACT table' ),
+							array('Field' => 'recruiter_name', 'Data Type' => 'VARCHAR(100)', 'Remarks' => '' ),
+							array('Field' => 'carrier_id', 'Data Type' => 'int', 'Remarks' => 'Reference to CARRIER table' ),
+							array('Field' => 'agency_id', 'Data Type' => 'int', 'Remarks' => 'Reference to AGENCY table' ),
+							array('Field' => 'agent_category', 'Data Type' => 'VARCHAR(150)', 'Remarks' => '' ),
+							array('Field' => 'state_authority', 'Data Type' => 'VARCHAR(100)', 'Remarks' => '' ),
+							array('Field' => 'join_date', 'Data Type' => 'DATE', 'Remarks' => '' ),
+							array('Field' => 'agent_status', 'Data Type' => 'VARCHAR(20)', 'Remarks' => '' ),
+							array('Field' => 'carrier_portal_username', 'Data Type' => 'VARCHAR(50)', 'Remarks' => '' ),
+							array('Field' => 'carrier_portal_password', 'Data Type' => 'VARCHAR(100)', 'Remarks' => '' ),							
+							array('Field' => 'writing_id_type', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+							array('Field' => 'writing_number', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+							array('Field' => 'position', 'Data Type' => 'int', 'Remarks' => 'Possible reference to position table'),
+							array('Field' => 'compensation', 'Data Type' => 'int', 'Remarks' => 'Possible reference to compenstion table'),
+						);	
+
+						//license table
+						$licenseTbl = array(
+							array('Field' => 'id', 'Data Type' => 'INT', 'Remarks' => 'Primary Key' ),
+							array('Field' => 'license_number', 'Data Type' => 'VARCHAR(15)', 'Remarks' => '' ),
+							array('Field' => 'license_category', 'Data Type' => 'VARCHAR(15)', 'Remarks' => '' ),
+							array('Field' => 'license_type', 'Data Type' => 'VARCHAR(150)', 'Remarks' => '' ),
+							array('Field' => 'agency_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to Agency table' ),
+							array('Field' => 'agent_id', 'Data Type' => 'VARCHAR(15)', 'Remarks' => 'Reference to Agent table' ),
+							array('Field' => 'national_producer_number', 'Data Type' => 'VARCHAR(20)', 'Remarks' => '' ),
+							array('Field' => 'line_of_authority', 'Data Type' => 'VARCHAR(50)', 'Remarks' => '' ),
+							array('Field' => 'license_issue_date', 'Data Type' => 'DATE', 'Remarks' => '' ),
+							array('Field' => 'license_expiration', 'Data Type' => 'DATE', 'Remarks' => ''),
+							array('Field' => 'license_status', 'Data Type' => 'VARCHAR(20)', 'Remarks' => ''),
+							array('Field' => 'error_ommission', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+							array('Field' => 'error_ommission_status', 'Data Type' => 'VARCHAR(50)', 'Remarks' => ''),
+						);
+						?>
+
+						<h4> A. CONTACT TABLE </h4>
+						<table class="table table-bordered table-striped">
+							<tr>
+								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
+							</tr>
+							<?php 							
+							foreach($contactTbl as $column):
+								echo '<tr>
+									<td> ' . $column['Field'] . ' </td>
+									<td> ' . $column['Data Type'] . '</td>
+									<td> ' . $column['Remarks'] . '</td>
+								</tr>';
+							endforeach;
+							?>
+						
+							<tr>
+								<th colspan="3"> <br> <h4> B. AGENTS TABLE </h4> </th>
+							</tr>						
+							<tr>
+								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
+							</tr>
+							<?php 							
+							foreach($agentsTbl as $column):
+								echo '<tr>
+									<td> ' . $column['Field'] . ' </td>
+									<td> ' . $column['Data Type'] . '</td>
+									<td> ' . $column['Remarks'] . '</td>
+								</tr>';
+							endforeach;
+							?>
+							<tr>
+								<th colspan="3"> <br><h4> C. LICENSE TABLE </h4> </th>
+							</tr>
+							<tr>
+								<th>FIELD </th> <th> DATA TYPE </th> <th> REMARKS </th>
+							</tr>
+							<?php 							
+							foreach($licenseTbl as $column):
+								echo '<tr>
+									<td> ' . $column['Field'] . ' </td>
+									<td> ' . $column['Data Type'] . '</td>
+									<td> ' . $column['Remarks'] . '</td>
+								</tr>';
+							endforeach;
+							?>
+						</table>
+
+						<h4> I. ADD NEW AGENT </h4>	
+						<i> You can use a form wizard here. </i>
+						<br><br>
+						
+						<table width="90%">
+							<tr>																
+								<td width="30%"> Assigned Carrier <br> 
+									<select> 
+										<option> </option> 
+										<option> American Family Insurance </option> 
+										<option> AXA Equitable Life Insurance </option> 
+										<option> Brighthouse Financial </option>
+										<option> Cincinnati Financial Corporation  &nbsp;&nbsp; </option>
+									</select>
+								</td>
+								<td width="30%"> Assigned Agency <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Bettler Life Insurance Agency </option> 
+									</select>
+								</td>
+								<td width="30%"> Direct Recruiter Full Name <br> <input type="text"> </td>
+							</tr>	
+							<tr>																
+								<td width="30%"> Agent Category <br> 
+									<select> 
+										<option> </option> 
+										<option> American Family Insurance </option> 
+										<option> AXA Equitable Life Insurance </option> 
+										<option> Brighthouse Financial </option>
+										<option> Cincinnati Financial Corporation  &nbsp;&nbsp; </option>
+									</select>
+								</td>
+								<td width="30%"> Agent Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Inactive </option> 
+										<option> Transferred </option> 
+										<option> Suspended </option> 
+										<option> Terminated </option> 
+									</select>
+								</td>
+								<td width="30%"> Join Date <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+							</tr>						
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> First Name <br> <input type="text"> </td>
+								<td> Middlename<br> <input type="text"> </td>
+								<td> Lastname <br> <input type="text"> </td>
+							</tr>
+							<tr>
+								<td> Phone <br> <input type="text"> </td>
+								<td> Email <br> <input type="text"> </td>
+								<td> Address <br> <input type="text"> </td>
+							</tr>
+							<tr>
+								<td> City <br> <input type="text"> </td>
+								<td> State <br> <input type="text"> </td>
+								<td> Zip Code <br> <input type="text"> </td>
+							</tr>
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> License Number <br> <input type="text"> </td>
+								<td> License Type <br> 
+									<select > 
+										<option> </option> 
+										<option> Life Only </option> 
+										<option> Health, Accident and Sickness Only </option> 
+										<option> Life, Health, Accident and Sickness </option> 
+										<option> Property Only </option> 
+										<option> Casualty Only </option> 
+										<option>Property and Casualty </option>
+									</select>
+								</td>
+								<td> License Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Expired </option>
+										<option> Suspended </option> 
+										<option> Terminated </option> 
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td> License Issue Date <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+								<td> License Expiration <br> <input type="text" placeholder="mm/dd/yyyy"> </td>
+								<td> E & O Status <br> 
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Active </option> 
+										<option> Non-Payment </option> 
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td> National Producer Number <br> <input type="text"> </td>
+								<td> State Appointment <br>
+									<select style="width:300px"> 
+										<option> </option> 
+										<option> Alabama </option> 
+										<option> Alaska </option> 
+										<option> Arizona </option> 
+										<option> Arkansas </option> 
+										<option> California </option> 
+										<option> Colorado</option> 
+										<option> Connecticut </option> 
+										<option> Delaware </option> 
+										<option> Florida </option> 
+										<option> Limited Lines License </option> 
+										<option> Georgia </option> 
+										<option> Hawaii </option> 
+									</select> 							
+								</td>
+								<td> </td>
+							</tr>
+							<tr> <td> &nbsp;</td></tr>
+							<tr> <td colspan="3"> <hr> </td></tr>
+							<tr>
+								<td> Writing ID Type <br> <input type="text" > </td>
+								<td> Writing Number <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+							<tr>
+								<td> Position <br> <input type="text" > </td>
+								<td> Compensation <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+							
+							<tr>
+								<td> Carrier Portal Username <br> <input type="text" > </td>
+								<td> Carrier Portal Password <br> <input type="text" > </td>
+								<td> </td>
+							</tr>
+						</table>	
+
+						<br><br>
+						<hr>
+						<h4> II. AGENTS LIST </h4>		
+						<?php 
+							$tbl1 = array("AGENT ID", "AGENT NAME", "PHONE", "AGENCY NAME", 
+							 "LICENSE TYPE","LICENSE STATUS","AGENT STATUS","ACTION");
+							$tbl2 = array(
+								"701", "Hecel Canizares", "226-3365-1145", "Better Life Insurance Agency, LLC",
+								"Life Only", "Active", "Active", "");							
+						?>
+						<table class="table table-bordered table-striped">
+							<tr>
+								<?php
+								foreach($tbl1 as $key):
+									echo "<th> $key </th>";
+								endforeach;
+								?>
+							</tr>
+							<tr>
+							<?php
+								foreach($tbl2 as $val):
+									echo "<td> $val </td>";
+								endforeach;
+								?>
+							</tr>
+						</table>				
+						
 						
 					</section><!--//section-->	
 					
@@ -661,7 +1089,7 @@
 				    <header class="docs-header">
 					    <h1 class="docs-heading"> AGENTS </h1>
 					    <section class="docs-intro">
-						    <p> This is the clients access. </p>
+						    <p> This is the agents access. </p>
 						</section><!--//docs-intro-->
 				    </header>
 					<section class="docs-section" id="item-5-1">
